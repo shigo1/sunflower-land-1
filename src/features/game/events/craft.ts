@@ -1,11 +1,13 @@
 import Decimal from "decimal.js-light";
 import { INITIAL_STOCK } from "../lib/constants";
 import {
+  BEES,
   Craftable,
   CraftableName,
   CRAFTABLES,
   FOODS,
   TOOLS,
+  BEES
 } from "../types/craftables";
 import { SeedName, SEEDS } from "../types/crops";
 import { GameState, Inventory, InventoryItemName } from "../types/game";
@@ -25,6 +27,7 @@ const VALID_ITEMS = Object.keys({
   ...TOOLS,
   ...SEEDS(),
   ...FOODS(),
+  ...BEES,
 }) as CraftableName[];
 
 function isCraftable(

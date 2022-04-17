@@ -50,6 +50,9 @@ import mysteriousParsnip from "assets/nfts/mysterious_parsnip.png";
 import carrotSword from "assets/nfts/carrot_sword.png";
 import nancy from "assets/nfts/nancy.png";
 import kuebiko from "assets/nfts/kuebiko.gif";
+import beehive from "assets/buildings/hive.png";
+import beebox from "assets/buildings/beehive.png";
+import sunflowerCake from "assets/nfts/sunflower_cake.png";
 
 // Foods
 import pumpkinSoup from "assets/nfts/pumpkin_soup.png";
@@ -109,6 +112,9 @@ import iron from "assets/resources/iron_ore.png";
 import gold from "assets/resources/gold_ore.png";
 import chicken from "assets/resources/chicken.png";
 import questionMark from "assets/icons/expression_confused.png";
+import bee from "assets/animals/bee.png";
+import honey from "assets/resources/honey.png";
+import queen from "assets/animals/queen.png";
 
 // Skills
 import greenThumb from "assets/skills/green_thumb.png";
@@ -277,6 +283,18 @@ export const ITEM_DETAILS: Items = {
     ...RESOURCES["Chicken"],
     image: questionMark,
   },
+  Bee: {
+    ...RESOURCES["Bee"],
+    image: bee,
+  },
+  Queen: {
+    ...RESOURCES["Queen"],
+    image: queen,
+  },
+  Honey: {
+    ...RESOURCES["Honey"],
+    image: honey,
+  },
 
   // TOOLS
   Axe: {
@@ -389,6 +407,20 @@ export const ITEM_DETAILS: Items = {
   "Carrot Sword": {
     ...MARKET_ITEMS["Carrot Sword"],
     image: carrotSword,
+  },
+  "Bee Hive": {
+    ...BLACKSMITH_ITEMS["Bee Hive"],
+    image: beehive,
+  },
+
+  "Bee Box": {
+    ...BLACKSMITH_ITEMS["Bee Box"],
+    image: beebox,
+  },
+
+  "Sunflower Cake": {
+    ...BLACKSMITH_ITEMS["Sunflower Cake"],
+    image: sunflowerCake,
   },
 
   // FOOD

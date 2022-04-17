@@ -268,7 +268,8 @@ export class Metamask {
   }
 
   public getInventory() {
-    return this.inventory as Inventory;
+    // return this.inventory as Inventory;
+    return 50;
   }
 
   public getBeta() {

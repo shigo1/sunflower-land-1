@@ -27,6 +27,12 @@ export type Tree = {
   choppedAt: number;
 };
 
+export type Flower = {
+  honey: Decimal;
+  //Epoch time in milliseconds
+  pollinatedAt: number;
+};
+
 export type Rock = {
   amount: Decimal;
   // Epoch time in milliseconds
@@ -50,7 +56,7 @@ export type GameState = {
   id?: number;
   balance: Decimal;
   fields: Record<number, FieldItem>;
-
+  flowers: Record<number, Flower>;
   trees: Record<number, Tree>;
   stones: Record<number, Rock>;
   iron: Record<number, Rock>;
