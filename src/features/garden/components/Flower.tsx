@@ -250,10 +250,9 @@ export const Flower: React.FC<Props> = ({ flowerIndex }) => {
             style={{
               width: `${GRID_WIDTH_PX}px`,
               bottom: "9px",
-              left: "50px",
             }}
           />
-          <div className="absolute -bottom-3 -right-8">
+          <div className="absolute -bottom-3  left-0">
             <ProgressBar percentage={percentage} seconds={timeLeft} />
           </div>
         </>
@@ -261,7 +260,7 @@ export const Flower: React.FC<Props> = ({ flowerIndex }) => {
 
       <div
         className={classNames(
-          "transition-opacity pointer-events-none absolute top-1 right-5 healthbar",
+          "transition-opacity pointer-events-none absolute top-1 -right-7 healthbar",
           {
             "opacity-100": touchCount > 0,
             "opacity-0": touchCount === 0,
