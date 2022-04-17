@@ -32,8 +32,13 @@ export interface Context {
   errorCode?: keyof typeof ERRORS;
   fingerprint?: string;
   whitelistedAt?: Date;
+<<<<<<< HEAD
   itemsMintedAt?: MintedAt;
   blacklistStatus?: "investigating" | "permanent";
+=======
+  itemsMintedAt?: MintedAt
+  blacklistStatus?: 'investigating' | 'permanent'
+>>>>>>> 685bc93 (Enable temporary bans to play (#580))
 }
 
 type MintEvent = {
@@ -165,6 +170,7 @@ export function startGame(authContext: Options) {
                   throw new Error("NO_FARM");
                 }
 
+<<<<<<< HEAD
                 const {
                   game,
                   offset,
@@ -173,10 +179,17 @@ export function startGame(authContext: Options) {
                   itemsMintedAt,
                   blacklistStatus,
                 } = response;
+=======
+                const { game, offset, isBlacklisted, whitelistedAt, itemsMintedAt, blacklistStatus } = response;
+>>>>>>> 685bc93 (Enable temporary bans to play (#580))
 
                 // add farm address
                 game.farmAddress = authContext.address;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 685bc93 (Enable temporary bans to play (#580))
                 return {
                   state: {
                     ...game,
@@ -520,8 +533,13 @@ export function startGame(authContext: Options) {
         },
         blacklisted: {
           on: {
+<<<<<<< HEAD
             CONTINUE: "playing",
           },
+=======
+            CONTINUE: "playing"
+          }
+>>>>>>> 685bc93 (Enable temporary bans to play (#580))
         },
         synced: {
           on: {
