@@ -6,14 +6,14 @@ import { Context as AuthContext } from "features/auth/lib/authMachine";
 import { metamask } from "../../../lib/blockchain/metamask";
 
 import { GameState } from "../types/game";
-import { loadSession, MintedAt } from "../actions/loadSession";
+import { loadSession } from "../actions/loadSession";
 import { INITIAL_FARM, EMPTY } from "./constants";
-import { autosave } from "../actions/autosave";
+import { autosave, solveCaptcha } from "../actions/autosave";
 import { mint } from "../actions/mint";
 import { LimitedItem } from "../types/craftables";
 import { sync } from "../actions/sync";
 import { withdraw } from "../actions/withdraw";
-import { getOnChainState } from "../actions/visit";
+import { getVisitState } from "../actions/visit";
 import { ErrorCode, ERRORS } from "lib/errors";
 import { updateGame } from "./transforms";
 import { getFingerPrint } from "./botDetection";
@@ -29,22 +29,14 @@ export interface Context {
   actions: PastAction[];
   offset: number;
   sessionId?: string;
+  captcha?: string;
   errorCode?: keyof typeof ERRORS;
   fingerprint?: string;
-  whitelistedAt?: Date;
-<<<<<<< HEAD
-  itemsMintedAt?: MintedAt;
-  blacklistStatus?: "investigating" | "permanent";
-=======
-  itemsMintedAt?: MintedAt
-  blacklistStatus?: 'investigating' | 'permanent'
->>>>>>> 685bc93 (Enable temporary bans to play (#580))
 }
 
 type MintEvent = {
   type: "MINT";
   item: LimitedItem;
-  captcha: string;
 };
 
 type LevelUpEvent = {
@@ -57,27 +49,20 @@ type WithdrawEvent = {
   sfl: number;
   ids: number[];
   amounts: string[];
-  captcha: string;
-};
-
-type SyncEvent = {
-  captcha: string;
-  type: "SYNC";
 };
 
 export type BlockchainEvent =
   | {
       type: "SAVE";
     }
-  | SyncEvent
+  | {
+      type: "SYNC";
+    }
   | {
       type: "REFRESH";
     }
   | {
       type: "EXPIRED";
-    }
-  | {
-      type: "CONTINUE";
     }
   | WithdrawEvent
   | GameEvent
@@ -111,12 +96,12 @@ export type BlockchainState = {
     | "playing"
     | "readonly"
     | "autosaving"
+    | "captcha"
     | "minting"
+    | "success"
     | "syncing"
-    | "synced"
     | "levelling"
     | "withdrawing"
-    | "withdrawn"
     | "error"
     | "blacklisted";
   context: Context;
@@ -158,8 +143,6 @@ export function startGame(authContext: Options) {
             src: async (context) => {
               // Load the farm session
               if (context.sessionId) {
-                const fingerprint = await getFingerPrint();
-
                 const response = await loadSession({
                   farmId: Number(authContext.farmId),
                   sessionId: context.sessionId as string,
@@ -170,50 +153,28 @@ export function startGame(authContext: Options) {
                   throw new Error("NO_FARM");
                 }
 
-<<<<<<< HEAD
-                const {
-                  game,
-                  offset,
-                  isBlacklisted,
-                  whitelistedAt,
-                  itemsMintedAt,
-                  blacklistStatus,
-                } = response;
-=======
-                const { game, offset, isBlacklisted, whitelistedAt, itemsMintedAt, blacklistStatus } = response;
->>>>>>> 685bc93 (Enable temporary bans to play (#580))
+                const { game, offset, isBlacklisted } = response;
 
                 // add farm address
                 game.farmAddress = authContext.address;
 
-<<<<<<< HEAD
-=======
+                const fingerprint = await getFingerPrint();
 
->>>>>>> 685bc93 (Enable temporary bans to play (#580))
                 return {
-                  state: {
-                    ...game,
-                    id: Number(authContext.farmId),
-                  },
+                  state: game,
                   offset,
                   isBlacklisted,
-                  whitelistedAt,
                   fingerprint,
-                  itemsMintedAt,
-                  blacklistStatus,
                 };
               }
 
               // Visit farm
               if (authContext.address) {
-                const { game, isBlacklisted } = await getOnChainState({
-                  farmAddress: authContext.address as string,
-                  id: Number(authContext.farmId),
-                });
+                const game = await getVisitState(authContext.address as string);
 
                 game.id = authContext.farmId as number;
 
-                return { state: game, isBlacklisted };
+                return { state: game };
               }
 
               return { state: INITIAL_FARM };
@@ -222,15 +183,6 @@ export function startGame(authContext: Options) {
               {
                 target: "blacklisted",
                 cond: (_, event) => event.data.isBlacklisted,
-                actions: assign({
-                  whitelistedAt: (_, event) =>
-                    new Date(event.data.whitelistedAt),
-                  blacklistStatus: (_, event) => event.data.blacklistStatus,
-                  state: (_, event) => event.data.state,
-                  offset: (_, event) => event.data.offset,
-                  fingerprint: (_, event) => event.data.fingerprint,
-                  itemsMintedAt: (_, event) => event.data.itemsMintedAt,
-                }),
               },
               {
                 target: handleInitialState(),
@@ -238,13 +190,11 @@ export function startGame(authContext: Options) {
                   state: (_, event) => event.data.state,
                   offset: (_, event) => event.data.offset,
                   fingerprint: (_, event) => event.data.fingerprint,
-                  itemsMintedAt: (_, event) => event.data.itemsMintedAt,
                 }),
               },
             ],
             onError: {
               target: "error",
-              actions: "assignErrorMessage",
             },
           },
         },
@@ -258,7 +208,7 @@ export function startGame(authContext: Options) {
               const interval = setInterval(async () => {
                 const sessionID = await metamask
                   .getSessionManager()
-                  ?.getSessionId(authContext?.farmId as number);
+                  .getSessionId(authContext?.farmId as number);
 
                 if (sessionID !== context.sessionId) {
                   cb("EXPIRED");
@@ -317,6 +267,7 @@ export function startGame(authContext: Options) {
                 actions: context.actions,
                 token: authContext.rawToken as string,
                 offset: context.offset,
+                captcha: context.captcha,
                 fingerprint: context.fingerprint as string,
               });
 
@@ -332,6 +283,12 @@ export function startGame(authContext: Options) {
             },
             onDone: [
               {
+                target: "captcha",
+                cond: (_, event) => {
+                  return !event.data.verified;
+                },
+              },
+              {
                 target: "playing",
                 actions: assign((context: Context, event) => {
                   // Actions that occured since the server request
@@ -339,14 +296,39 @@ export function startGame(authContext: Options) {
                     (action) =>
                       action.createdAt.getTime() > event.data.saveAt.getTime()
                   );
-
                   return {
                     actions: recentActions,
-                    state: updateGame(event.data.farm, context.state),
+                    state: updateGame(
+                      event.data.farm,
+                      recentActions,
+                      context.state
+                    ),
                   };
                 }),
               },
             ],
+            onError: {
+              target: "error",
+              actions: "assignErrorMessage",
+            },
+          },
+        },
+        captcha: {
+          invoke: {
+            src: async (_, event: any) => {
+              const captcha = await solveCaptcha();
+
+              return {
+                captcha,
+                ...event.data,
+              };
+            },
+            onDone: {
+              target: "autosaving",
+              actions: assign((context: Context, event) => ({
+                captcha: event.data.captcha,
+              })),
+            },
             onError: {
               target: "error",
               actions: "assignErrorMessage",
@@ -368,14 +350,11 @@ export function startGame(authContext: Options) {
                 });
               }
 
-              const { item, captcha } = event as MintEvent;
-
-              const { sessionId } = await mint({
+              const sessionId = await mint({
                 farmId: Number(authContext.farmId),
                 sessionId: context.sessionId as string,
                 token: authContext.rawToken as string,
-                item,
-                captcha,
+                item: (event as MintEvent).item,
               });
 
               return {
@@ -383,7 +362,7 @@ export function startGame(authContext: Options) {
               };
             },
             onDone: {
-              target: "synced",
+              target: "success",
               actions: assign((_, event) => ({
                 sessionId: event.data.sessionId,
                 actions: [],
@@ -397,7 +376,7 @@ export function startGame(authContext: Options) {
         },
         syncing: {
           invoke: {
-            src: async (context, event) => {
+            src: async (context) => {
               // Autosave just in case
               if (context.actions.length > 0) {
                 await autosave({
@@ -410,11 +389,10 @@ export function startGame(authContext: Options) {
                 });
               }
 
-              const { sessionId } = await sync({
+              const sessionId = await sync({
                 farmId: Number(authContext.farmId),
                 sessionId: context.sessionId as string,
                 token: authContext.rawToken as string,
-                captcha: (event as SyncEvent).captcha,
               });
 
               return {
@@ -422,7 +400,7 @@ export function startGame(authContext: Options) {
               };
             },
             onDone: {
-              target: "synced",
+              target: "success",
               actions: assign((_, event) => ({
                 sessionId: event.data.sessionId,
                 actions: [],
@@ -447,15 +425,14 @@ export function startGame(authContext: Options) {
         withdrawing: {
           invoke: {
             src: async (context, event) => {
-              const { amounts, ids, sfl, captcha } = event as WithdrawEvent;
-              const { sessionId } = await withdraw({
+              const { amounts, ids, sfl } = event as WithdrawEvent;
+              const sessionId = await withdraw({
                 farmId: Number(authContext.farmId),
                 sessionId: context.sessionId as string,
                 token: authContext.rawToken as string,
                 amounts,
                 ids,
                 sfl,
-                captcha,
               });
 
               return {
@@ -463,7 +440,7 @@ export function startGame(authContext: Options) {
               };
             },
             onDone: {
-              target: "withdrawn",
+              target: "success",
               actions: assign({
                 sessionId: (_, event) => event.data.sessionId,
               }),
@@ -526,29 +503,9 @@ export function startGame(authContext: Options) {
           },
         },
         readonly: {},
-        error: {
-          on: {
-            CONTINUE: "playing",
-          },
-        },
-        blacklisted: {
-          on: {
-<<<<<<< HEAD
-            CONTINUE: "playing",
-          },
-=======
-            CONTINUE: "playing"
-          }
->>>>>>> 685bc93 (Enable temporary bans to play (#580))
-        },
-        synced: {
-          on: {
-            REFRESH: {
-              target: "loading",
-            },
-          },
-        },
-        withdrawn: {
+        error: {},
+        blacklisted: {},
+        success: {
           on: {
             REFRESH: {
               target: "loading",
