@@ -154,11 +154,17 @@ export const INITIAL_FARM: GameState = {
   fields: INITIAL_FIELDS,
   inventory: {
     Sunflower: new Decimal(5),
-    Potato: new Decimal(12),
-    Scarecrow: new Decimal(4),
+    Radish: new Decimal(12),
+    Scarecrow: new Decimal(1),
     "Woody the Beaver": new Decimal(1),
     "Bee Hive": new Decimal(1),
     Queen: new Decimal(1),
+    Sauerkraut: new Decimal(1),
+    "Radish Pie": new Decimal(1),
+    "Roasted Cauliflower": new Decimal(1),
+    "Pumpkin Soup": new Decimal(1),
+    "Green Thumb": new Decimal(1),
+    "Seed Specialist": new Decimal(1),
   },
   flowers: INITIAL_FLOWERS,
   stock: INITIAL_STOCK,
@@ -167,7 +173,7 @@ export const INITIAL_FARM: GameState = {
   iron: INITIAL_IRON,
   gold: INITIAL_GOLD,
   skills: {
-    farming: new Decimal(0),
+    farming: new Decimal(1400),
     gathering: new Decimal(0),
   },
 };

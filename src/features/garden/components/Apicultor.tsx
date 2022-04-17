@@ -19,9 +19,9 @@ export const Apicultor: React.FC = () => {
         className="absolute z-10 animate-float"
         style={{
           width: `${GRID_WIDTH_PX * 0.3}px`,
-          right: `${GRID_WIDTH_PX * 10}px`,
+          right: `${GRID_WIDTH_PX * -0.65}px`,
 
-          top: `${GRID_WIDTH_PX * 2.8}px`,
+          top: `${GRID_WIDTH_PX * 0.1}px`,
         }}
       />
       <img
@@ -30,8 +30,8 @@ export const Apicultor: React.FC = () => {
         className="absolute cursor-pointer hover:img-highlight"
         style={{
           width: `${GRID_WIDTH_PX * 1}px`,
-          right: `${GRID_WIDTH_PX * 9.65}px`,
-          top: `${GRID_WIDTH_PX * 3.4}px`,
+          right: `${GRID_WIDTH_PX * -1}px`,
+          top: `${GRID_WIDTH_PX * 0.9}px`,
         }}
       />
 

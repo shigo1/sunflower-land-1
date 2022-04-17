@@ -6,7 +6,7 @@ import Spritesheet, {
 
 import Decimal from "decimal.js-light";
 
-import flySheet from "assets/resources/tree/shake_flower.png";
+import flySheet from "assets/resources/tree/shake_flower-export.png";
 import choppedSheet from "assets/resources/tree/chopped_sheet.png";
 import pollinatedFlower from "assets/crops/sunflower/planted.png";
 import honey from "assets/resources/honey.png";
@@ -171,7 +171,10 @@ export const Flower: React.FC<Props> = ({ flowerIndex }) => {
   const percentage = 100 - (timeLeft / FLOWER_RECOVERY_SECONDS) * 100;
 
   return (
-    <div className="relative" style={{ height: "106px" }}>
+    <div
+      className="relative"
+      style={{ height: "106px", left: "-38px", top: "-35px" }}
+    >
       {!pollinated && (
         <div
           onMouseEnter={handleHover}
@@ -181,7 +184,7 @@ export const Flower: React.FC<Props> = ({ flowerIndex }) => {
           onClick={fly}
         >
           <Spritesheet
-            className="group-hover:img-highlight pointer-events-none transform"
+            className="group-hover:img-highlight pointer-events-none transform flower"
             style={{
               width: `${GRID_WIDTH_PX * 4}px`,
               // Line it up with the click area
@@ -217,7 +220,7 @@ export const Flower: React.FC<Props> = ({ flowerIndex }) => {
         style={{
           width: `${GRID_WIDTH_PX * 2}px`,
           // Line it up with the click area
-          transform: `translateX(-${GRID_WIDTH_PX * 1}px)`,
+          transform: `translateX(-${GRID_WIDTH_PX * 2}px)`,
           opacity: collecting ? 1 : 0,
           transition: "opacity 0.2s ease-in",
           imageRendering: "pixelated",
@@ -250,7 +253,7 @@ export const Flower: React.FC<Props> = ({ flowerIndex }) => {
               left: "50px",
             }}
           />
-          <div className="absolute -bottom-3 -right-7">
+          <div className="absolute -bottom-3 -right-8">
             <ProgressBar percentage={percentage} seconds={timeLeft} />
           </div>
         </>
@@ -258,7 +261,7 @@ export const Flower: React.FC<Props> = ({ flowerIndex }) => {
 
       <div
         className={classNames(
-          "transition-opacity pointer-events-none absolute top-1 right-7 healthbar",
+          "transition-opacity pointer-events-none absolute top-1 right-5 healthbar",
           {
             "opacity-100": touchCount > 0,
             "opacity-0": touchCount === 0,
