@@ -16,7 +16,11 @@ export async function levelUp(request: Request) {
   if (!API_URL) return { farm: null };
 
   // Uses same autosave event driven endpoint
+<<<<<<< HEAD
   const response = await window.fetch(`${API_URL}/autosave`, {
+=======
+  const response = await window.fetch(`${API_URL}/autosave/${request.farmId}`, {
+>>>>>>> main
     method: "POST",
     headers: {
       "content-type": "application/json;charset=UTF-8",
@@ -24,7 +28,10 @@ export async function levelUp(request: Request) {
       "X-Fingerprint": request.fingerprint,
     },
     body: JSON.stringify({
+<<<<<<< HEAD
       farmId: request.farmId,
+=======
+>>>>>>> main
       sessionId: request.sessionId,
       actions: [
         {

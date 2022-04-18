@@ -21,7 +21,11 @@ export enum Section {
   Fountain = "fountain",
   Flags = "flags",
   Beaver = "beaver",
+<<<<<<< HEAD
   "Bee Hive" = "bee-hive",
+=======
+  "Easter Bunny" = "easter-bunny",
+>>>>>>> main
 }
 
 export const useScrollIntoView = () => {

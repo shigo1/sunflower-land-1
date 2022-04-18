@@ -11,7 +11,11 @@ type Options = {
   captcha?: string;
 };
 export async function sync({ farmId, sessionId, token, captcha }: Options) {
+<<<<<<< HEAD
   const response = await window.fetch(`${API_URL}/sync`, {
+=======
+  const response = await window.fetch(`${API_URL}/sync/${farmId}`, {
+>>>>>>> main
     method: "POST",
     headers: {
       "content-type": "application/json;charset=UTF-8",
@@ -19,7 +23,10 @@ export async function sync({ farmId, sessionId, token, captcha }: Options) {
     },
     body: JSON.stringify({
       sessionId: sessionId,
+<<<<<<< HEAD
       farmId: farmId,
+=======
+>>>>>>> main
       captcha,
     }),
   });

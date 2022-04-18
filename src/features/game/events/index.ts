@@ -9,7 +9,11 @@ import { chop, ChopAction } from "./chop";
 import { openReward, OpenRewardAction } from "./rewarded";
 
 import { GameState } from "../types/game";
+<<<<<<< HEAD
 import { canPollinate, getHoney, HoneyAction } from "./harvestHoney";
+=======
+import { CollectEggAction, collectEgg } from "./collectEgg";
+>>>>>>> main
 
 export type GameEvent =
   | CraftAction
@@ -21,7 +25,11 @@ export type GameEvent =
   | GoldMineAction
   | ChopAction
   | OpenRewardAction
+<<<<<<< HEAD
   | HoneyAction;
+=======
+  | CollectEggAction;
+>>>>>>> main
 
 type EventName = Extract<GameEvent, { type: string }>["type"];
 
@@ -46,5 +54,9 @@ export const EVENTS: Handlers = {
   "gold.mined": mineGold,
   "tree.chopped": chop,
   "reward.opened": openReward,
+<<<<<<< HEAD
   "flower.pollinated": getHoney,
+=======
+  "easterEgg.collected": collectEgg,
+>>>>>>> main
 };

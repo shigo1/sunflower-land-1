@@ -88,6 +88,10 @@ export const InventoryTabContent = ({
   }, {} as Record<string, InventoryItemName[]>);
 
   const findIfItemsExistForCategory = (category: string) => {
+<<<<<<< HEAD
+=======
+    console.log({ category, inventoryMapping})
+>>>>>>> main
     return Object.keys(inventoryMapping).includes(category);
   };
 

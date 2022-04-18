@@ -60,7 +60,11 @@ export async function autosave(request: Request) {
   // Serialize values before sending
   const actions = serialize(events, request.offset);
 
+<<<<<<< HEAD
   const response = await window.fetch(`${API_URL}/autosave`, {
+=======
+  const response = await window.fetch(`${API_URL}/autosave/${request.farmId}`, {
+>>>>>>> main
     method: "POST",
     headers: {
       "content-type": "application/json;charset=UTF-8",
@@ -68,7 +72,10 @@ export async function autosave(request: Request) {
       "X-Fingerprint": request.fingerprint,
     },
     body: JSON.stringify({
+<<<<<<< HEAD
       farmId: request.farmId,
+=======
+>>>>>>> main
       sessionId: request.sessionId,
       actions,
     }),

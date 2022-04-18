@@ -20,6 +20,10 @@ import fountain from "assets/nfts/fountain.gif";
 import beaver from "assets/nfts/beaver.png";
 import apprentice from "assets/nfts/apprentice_beaver.png";
 import foreman from "assets/nfts/construction_beaver.png";
+<<<<<<< HEAD
+=======
+import easterBunny from "assets/nfts/easter/easter_bunny_eggs.gif";
+>>>>>>> main
 
 import { GRID_WIDTH_PX } from "../lib/constants";
 import { Context } from "../GameProvider";
@@ -274,6 +278,23 @@ export const Decorations: React.FC = () => {
           alt="Beaver"
         />
       )}
+<<<<<<< HEAD
+=======
+      
+      {state.inventory["Easter Bunny"] && (
+        <img
+          style={{
+            width: `${GRID_WIDTH_PX * 2.3}px`,
+            right: `${GRID_WIDTH_PX * 50}px`,
+            top: `${GRID_WIDTH_PX * 23}px`,
+          }}
+          id={Section["Easter Bunny"]}
+          className="absolute"
+          src={easterBunny}
+          alt="Easter Bunny"
+        />
+      )}
+>>>>>>> main
     </>
   );
 };
