@@ -198,7 +198,7 @@ export const Flower: React.FC<Props> = ({ flowerIndex }) => {
             widthFrame={266}
             heightFrame={168}
             fps={24}
-            steps={11}
+            steps={10}
             direction={`forward`}
             autoplay={false}
             loop={true}
