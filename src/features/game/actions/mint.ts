@@ -14,21 +14,13 @@ type Request = {
 const API_URL = CONFIG.API_URL;
 
 export async function mint(request: Request) {
-<<<<<<< HEAD
-  const response = await window.fetch(`${API_URL}/mint`, {
-=======
   const response = await window.fetch(`${API_URL}/mint/${request.farmId}`, {
->>>>>>> main
     method: "POST",
     headers: {
       "content-type": "application/json;charset=UTF-8",
       Authorization: `Bearer ${request.token}`,
     },
     body: JSON.stringify({
-<<<<<<< HEAD
-      farmId: request.farmId,
-=======
->>>>>>> main
       sessionId: request.sessionId,
       item: request.item,
       captcha: request.captcha,

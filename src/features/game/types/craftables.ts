@@ -1,10 +1,6 @@
 import Decimal from "decimal.js-light";
 import { SeedName, SEEDS } from "../types/crops";
-<<<<<<< HEAD
-import { InventoryItemName } from "./game";
-=======
 import { InventoryItemName } from "../types/game";
->>>>>>> main
 import { Section } from "lib/utils/hooks/useScrollIntoView";
 import { Flag, FLAGS } from "./flags";
 import { marketRate } from "../lib/halvening";
@@ -23,12 +19,8 @@ export type CraftableName =
   | SeedName
   | Food
   | Animal
-<<<<<<< HEAD
   | Flag
   | Bee;
-=======
-  | Flag;
->>>>>>> main
 
 export type Craftable = {
   name: CraftableName;
@@ -57,16 +49,12 @@ export type BlacksmithItem =
   | "Woody the Beaver"
   | "Apprentice Beaver"
   | "Foreman Beaver"
-<<<<<<< HEAD
   | "Bee Hive"
   | "Bee Box"
-  | "Sunflower Cake";
-
-export type BarnItem = "Farm Cat" | "Farm Dog" | "Chicken Coop" | "Gold Egg";
+  | "Sunflower Cake"
+  | "Egg Basket";
 
 export type BeeItem = "Queen" | "Sunflower Cake";
-=======
-  | "Egg Basket";
 
 export type BarnItem =
   | "Farm Cat"
@@ -74,7 +62,6 @@ export type BarnItem =
   | "Chicken Coop"
   | "Gold Egg"
   | "Easter Bunny";
->>>>>>> main
 
 export type MarketItem =
   | "Nancy"
@@ -84,16 +71,12 @@ export type MarketItem =
   | "Mysterious Parsnip"
   | "Carrot Sword";
 
-<<<<<<< HEAD
 export type LimitedItem =
   | BlacksmithItem
   | BarnItem
   | MarketItem
   | Flag
   | BeeItem;
-=======
-export type LimitedItem = BlacksmithItem | BarnItem | MarketItem | Flag;
->>>>>>> main
 
 export type Tool =
   | "Axe"
@@ -111,11 +94,8 @@ export type Food =
 
 export type Animal = "Chicken" | "Cow" | "Pig" | "Sheep";
 
-<<<<<<< HEAD
 export type Bee = "Bee";
 
-=======
->>>>>>> main
 export const FOODS: () => Record<Food, Craftable> = () => ({
   "Pumpkin Soup": {
     name: "Pumpkin Soup",
@@ -400,7 +380,6 @@ export const BLACKSMITH_ITEMS: Record<BlacksmithItem, Craftable> = {
     section: Section.Beaver,
     disabled: true,
   },
-<<<<<<< HEAD
 
   "Bee Hive": {
     name: "Bee Hive",
@@ -453,7 +432,7 @@ export const BLACKSMITH_ITEMS: Record<BlacksmithItem, Craftable> = {
     ],
     supply: 5000,
     section: Section["Bee Hive"],
-=======
+  },
   "Egg Basket": {
     name: "Egg Basket",
     description: "Gives access to the Easter Egg Hunt",
@@ -469,7 +448,6 @@ export const BLACKSMITH_ITEMS: Record<BlacksmithItem, Craftable> = {
       },
     ],
     supply: 100000,
->>>>>>> main
   },
 };
 
@@ -636,8 +614,6 @@ export const BARN_ITEMS: Record<BarnItem, Craftable> = {
     supply: 250,
     disabled: true,
   },
-<<<<<<< HEAD
-=======
   "Easter Bunny": {
     name: "Easter Bunny",
     description: "Earn 20% more Carrots",
@@ -679,7 +655,6 @@ export const BARN_ITEMS: Record<BarnItem, Craftable> = {
     supply: 100000,
     disabled: false,
   },
->>>>>>> main
 };
 
 export const ANIMALS: Record<Animal, Craftable> = {
@@ -713,7 +688,6 @@ export const ANIMALS: Record<Animal, Craftable> = {
   },
 };
 
-<<<<<<< HEAD
 export const BEES: Record<Bee, Craftable> = {
   Bee: {
     name: "Bee",
@@ -746,8 +720,6 @@ export const BEE_ITEMS: Record<BeeItem, Craftable> = {
     section: Section["Bee Hive"],
   },
 };
-=======
->>>>>>> main
 export const CRAFTABLES: () => Record<CraftableName, Craftable> = () => ({
   ...TOOLS,
   ...BLACKSMITH_ITEMS,
@@ -757,9 +729,6 @@ export const CRAFTABLES: () => Record<CraftableName, Craftable> = () => ({
   ...FOODS(),
   ...ANIMALS,
   ...FLAGS,
-<<<<<<< HEAD
   ...BEES,
   ...BEE_ITEMS,
-=======
->>>>>>> main
 });

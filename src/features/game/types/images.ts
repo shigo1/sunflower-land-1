@@ -50,12 +50,9 @@ import mysteriousParsnip from "assets/nfts/mysterious_parsnip.png";
 import carrotSword from "assets/nfts/carrot_sword.png";
 import nancy from "assets/nfts/nancy.png";
 import kuebiko from "assets/nfts/kuebiko.gif";
-<<<<<<< HEAD
 import beehive from "assets/buildings/hive.png";
 import beebox from "assets/buildings/beehive.png";
 import sunflowerCake from "assets/nfts/sunflower_cake.png";
-=======
->>>>>>> main
 
 // Foods
 import pumpkinSoup from "assets/nfts/pumpkin_soup.png";
@@ -115,12 +112,9 @@ import iron from "assets/resources/iron_ore.png";
 import gold from "assets/resources/gold_ore.png";
 import chicken from "assets/resources/chicken.png";
 import questionMark from "assets/icons/expression_confused.png";
-<<<<<<< HEAD
 import bee from "assets/animals/bee.png";
 import honey from "assets/resources/honey.png";
 import queen from "assets/animals/queen.png";
-=======
->>>>>>> main
 
 // Skills
 import greenThumb from "assets/skills/green_thumb.png";
@@ -132,8 +126,6 @@ import seedSpecialist from "assets/skills/seed_specialist.png";
 import logger from "assets/skills/logger.png";
 import lumberjack from "assets/skills/lumberjack.png";
 
-<<<<<<< HEAD
-=======
 // Egg
 import redEgg from "src/assets/nfts/easter/red_egg.png";
 import yellowEgg from "src/assets/nfts/easter/yellow_egg.png";
@@ -145,7 +137,6 @@ import pinkEgg from "src/assets/nfts/easter/pink_egg.png";
 import easterBasket from "src/assets/nfts/easter/basket.png";
 import easterBunny from "src/assets/nfts/easter/easter_bunny.gif";
 
->>>>>>> main
 import { InventoryItemName } from "./game";
 import {
   FOODS,
@@ -154,10 +145,7 @@ import {
   BLACKSMITH_ITEMS,
   MARKET_ITEMS,
   BARN_ITEMS,
-<<<<<<< HEAD
-=======
   CRAFTABLES,
->>>>>>> main
 } from "./craftables";
 import { CROPS, SEEDS } from "./crops";
 import { RESOURCES } from "./resources";
@@ -307,7 +295,6 @@ export const ITEM_DETAILS: Items = {
     ...RESOURCES["Chicken"],
     image: questionMark,
   },
-<<<<<<< HEAD
   Bee: {
     ...RESOURCES["Bee"],
     image: bee,
@@ -320,8 +307,6 @@ export const ITEM_DETAILS: Items = {
     ...RESOURCES["Honey"],
     image: honey,
   },
-=======
->>>>>>> main
 
   // TOOLS
   Axe: {
@@ -435,7 +420,6 @@ export const ITEM_DETAILS: Items = {
     ...MARKET_ITEMS["Carrot Sword"],
     image: carrotSword,
   },
-<<<<<<< HEAD
   "Bee Hive": {
     ...BLACKSMITH_ITEMS["Bee Hive"],
     image: beehive,
@@ -450,8 +434,6 @@ export const ITEM_DETAILS: Items = {
     ...BLACKSMITH_ITEMS["Sunflower Cake"],
     image: sunflowerCake,
   },
-=======
->>>>>>> main
 
   // FOOD
   "Pumpkin Soup": {
@@ -679,8 +661,6 @@ export const ITEM_DETAILS: Items = {
     ...FLAGS["Colombian Flag"],
     image: colombian_flag,
   },
-<<<<<<< HEAD
-=======
 
   "Egg Basket": {
     ...CRAFTABLES()["Egg Basket"],
@@ -718,5 +698,4 @@ export const ITEM_DETAILS: Items = {
     description: "A purple easter egg",
     image: purpleEgg,
   },
->>>>>>> main
 };

@@ -27,42 +27,32 @@ export type Tree = {
   choppedAt: number;
 };
 
-<<<<<<< HEAD
 export type Flower = {
   honey: Decimal;
   //Epoch time in milliseconds
   pollinatedAt: number;
 };
 
-=======
->>>>>>> main
 export type Rock = {
   amount: Decimal;
   // Epoch time in milliseconds
   minedAt: number;
 };
 
-<<<<<<< HEAD
-=======
 export type EasterEgg = 'Red Egg' | 'Orange Egg' | 'Green Egg' | 'Blue Egg' | 'Pink Egg' | 'Purple Egg' | 'Yellow Egg' 
 
 export const EASTER_EGGS: EasterEgg[] = ['Blue Egg', "Green Egg", "Orange Egg", "Pink Egg", "Purple Egg", "Red Egg", "Yellow Egg"]
 
 export type EasterBunny = 'Easter Bunny'
 
->>>>>>> main
 export type InventoryItemName =
   | CropName
   | SeedName
   | CraftableName
   | ResourceName
-<<<<<<< HEAD
-  | SkillName;
-=======
   | SkillName
   | EasterEgg
   | EasterBunny;
->>>>>>> main
 
 export type Inventory = Partial<Record<InventoryItemName, Decimal>>;
 
@@ -74,11 +64,7 @@ export type GameState = {
   id?: number;
   balance: Decimal;
   fields: Record<number, FieldItem>;
-<<<<<<< HEAD
   flowers: Record<number, Flower>;
-=======
-
->>>>>>> main
   trees: Record<number, Tree>;
   stones: Record<number, Rock>;
   iron: Record<number, Rock>;

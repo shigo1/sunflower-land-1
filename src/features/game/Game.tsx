@@ -35,12 +35,9 @@ import { ClockIssue } from "./components/ClockIssue";
 import { TooManyRequests } from "features/auth/components/TooManyRequests";
 import { screenTracker } from "lib/utils/screen";
 import { Withdrawn } from "./components/Withdrawn";
-<<<<<<< HEAD
 import { Bees } from "features/bees/Bees";
 import { Garden } from "features/garden/Garden";
-=======
 import { EasterEggHunt } from "features/easter/Area";
->>>>>>> main
 
 const AUTO_SAVE_INTERVAL = 1000 * 30; // autosave every 30 seconds
 const SHOW_MODAL: Record<StateValues, boolean> = {
@@ -118,13 +115,10 @@ export const Game: React.FC = () => {
       </Modal>
 
       <ClockIssue show={gameState.context.offset > 0} />
-<<<<<<< HEAD
 
-=======
       {/* TEMPORARY EASTER CAMPAIGN */}
       <EasterEggHunt />
       {/*     */}
->>>>>>> main
       <Hud />
       <TeamDonation />
       <Crops />
@@ -137,11 +131,8 @@ export const Game: React.FC = () => {
       <House />
       <Tailor />
       <Lore />
-<<<<<<< HEAD
       <Bees />
       <Garden />
-=======
->>>>>>> main
     </>
   );
 };
