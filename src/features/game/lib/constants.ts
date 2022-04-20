@@ -170,6 +170,7 @@ export const INITIAL_FARM: GameState = {
     "Pumpkin Soup": new Decimal(1),
     "Green Thumb": new Decimal(1),
     "Seed Specialist": new Decimal(1),
+    "Egg Basket": new Decimal(1),
   },
   flowers: INITIAL_FLOWERS,
   stock: INITIAL_STOCK,
